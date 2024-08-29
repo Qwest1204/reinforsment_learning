@@ -1,20 +1,25 @@
 [tool.poetry]
 name = "reinforsment learning"
-version = "0.0.0"
-description = "***"
+version = "0.1.0"
+description = ""
 authors = ["Daniil <122814306+Qwest1204@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-torch = {version = "^2.4.0+cu118", source = "torch118"}
-notebook = "^7.2.1"
+python = "^3.10"
+notebook = "^7.2.2"
+torch = "2.0"
+numpy = "1.24.1"
+gym = {version = "0.12.5", extras = ["atary"]}
+pyglet = "1.5.27"
+matplotlib = "^3.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [[tool.poetry.source]]
 name = "torch118"
 url = "https://download.pytorch.org/whl/cu118"
 priority = "explicit"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
