@@ -7,7 +7,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10.14"
-numpy = "1.24.1"
 nes-py = "^8.2.1"
 gymnasium = {extras = ["all"], version = "^0.29.1"}
 torch = { version = "^2.4.0+cu118", source="torch"}
@@ -17,6 +16,11 @@ torchrl = "^0.5.0"
 tensordict = "^0.5.0"
 notebook = "^7.2.2"
 gym = "^0.26.2"
+av = "11.0.0"
+pandas = "^2.2.3"
+opencv-python = "^4.10.0.84"
+progress = "^1.6"
+plotly = "^5.24.1"
 
 
 [build-system]
