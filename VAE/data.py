@@ -7,16 +7,10 @@ import cv2
 import os
 import torch
 
-
-PATH_TO_VIDEO="/mnt/750G/data/v2/video_540ss/"
-SAVE_PATH="/home/qwest/data_for_ml/ego4d/"
 BATCH_SIZE = 32
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print(f"device {DEVICE} is ready")
-
-data_path = Path(PATH_TO_VIDEO)
-data_path_list = list(data_path.glob("*.mp4"))
 
 # First preprocessing of data
 transform1 = T.Compose([T.Resize(64),
@@ -56,32 +50,4 @@ class Ego4d(Dataset):
     def __len__(self):
         return len(self.imgs)
 
-
-def get_number_of_video():
-    print(f"{len(data_path_list)} video in folder {PATH_TO_VIDEO}")
-
-def extract_image(frame, data_path_list, path_to_save, number_video):
-    for i in range(number_video):
-        # load the video using path of video ( my video length is 37 sec )
-        video_path = data_path_list[i].__str__() 
-        video = cv2.VideoCapture(video_path)
-
-        success = True
-        count = 1
-        image_id = 1
-        while success:
-            success , frame = video.read()
-            if success == True:
-                
-                if count%frame == 0:
-
-                    name = str(md5(frame).hexdigest()[:10])+".jpg"
-                    image_id += 1
-                    # save the image
-                    cv2.imwrite(os.path.join(path_to_save , name),frame)
-                count += 1
-            else:
-                break
-
-        print("Total Extracted Frames :",image_id) 
 

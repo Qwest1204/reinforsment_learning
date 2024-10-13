@@ -1,0 +1,1 @@
+FROM nvidia/cuda:12.0.1-base-ubuntu20.04
