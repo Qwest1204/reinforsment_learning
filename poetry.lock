@@ -4842,6 +4842,17 @@ tests = ["pytest", "pytest-instafail", "pyyaml", "scipy"]
 utils = ["git", "hydra-core (>=1.1)", "hydra-submitit-launcher", "tensorboard", "tqdm", "wandb"]
 
 [[package]]
+name = "torchsummary"
+version = "1.5.1"
+description = "Model summary in PyTorch similar to `model.summary()` in Keras"
+optional = false
+python-versions = "*"
+files = [
+    {file = "torchsummary-1.5.1-py3-none-any.whl", hash = "sha256:10f41d1743fb918f83293f13183f532ab1bb8f6639a1b89e5f8592ec1919a976"},
+    {file = "torchsummary-1.5.1.tar.gz", hash = "sha256:981bf689e22e0cf7f95c746002f20a24ad26aa6b9d861134a14bc6ce92230590"},
+]
+
+[[package]]
 name = "torchvision"
 version = "0.19.0+cu118"
 description = "image and video datasets and models for torch deep learning"
@@ -5201,4 +5212,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.14"
-content-hash = "bfddf0b2084c2c288888f357dd5ed35531c01f3687143aed98c88fe90c4b927e"
+content-hash = "e2693ede8429ab2fc1da9466c8b53859d8c86a5eb4d8a2ead60b5bf2adca20ba"

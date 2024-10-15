@@ -3,7 +3,7 @@ from data import *
 torch.backends.cuda.matmul.allow_tf32 = True
 
 print('transform initializate sucsess')
-train_dataset = Ego4d(img_dir='/home/qwest/data_for_ml/60x60/',
+train_dataset = Ego4d(img_dir='./data/',
                            transform1=transform1,
                            transform2=transform2)
 print("train_dataset init")
