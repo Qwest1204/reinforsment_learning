@@ -1,4 +1,4 @@
-from moedl import *
+from model import *
 from data import *
 torch.backends.cuda.matmul.allow_tf32 = True
 

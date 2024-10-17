@@ -2,7 +2,8 @@ import metaworld
 import random
 import cv2
 import numpy as np
- 
+from VAE.load import prepare_image
+
 
 def init_metaworld10(render_mode, camera_id):
     ml10 = metaworld.ML10() # Construct the benchmark, sampling tasks
@@ -29,7 +30,7 @@ def init_metaworld45(render_mode, camera_id):
     return training_envs
 
 def test_render_rgb_array():
-    training_envs = init_metaworld45(render_mode="rgb_array", camera_id=2)
+    training_envs = init_metaworld45(render_mode="rgb_array", camera_id=1)
     done = False
     while done != True:
         env = training_envs[4]
@@ -38,12 +39,14 @@ def test_render_rgb_array():
         obs, reward, done, info, _ = env.step(a) 
         print(env.action_space)
             # Display the resulting frame
-        cv2.imshow('Frame',  env.render()[:, :, ::-1])
+        rgb_array = env.render()[:, :, ::-1]
+        prepare_image(rgb_array)
+        cv2.imshow('Frame',  rgb_array)
         
             # Press Q on keyboard to  exit
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break # Step the environment with the sampled random actio
-
+        
         # [[[127 126 122] ----------- render rgb_array
         #   [127 126 122]
         #   [127 126 122]
@@ -93,3 +96,6 @@ def test_render_rgb_array():
         #   [219 219 219]
         #   [218 219 219]
         #   [217 218 218]]]
+
+
+test_render_rgb_array()
