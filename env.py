@@ -31,8 +31,8 @@ def init_metaworld45(render_mode, camera_id):
         training_envs.append(env)
     return training_envs
 
-def test_render_rgb_array():
-    training_envs = init_metaworld45(render_mode="rgb_array", camera_id=2)
+def run_with_model():
+    training_envs = init_metaworld45(render_mode="rgb_array", camera_id=1)
     done = False
     model = init_model("/home/qwest/project/PycharmProjects/Reinforsment_Learning/VAE.pth", 32, 1)
     while done != True:
@@ -55,6 +55,20 @@ def test_render_rgb_array():
         plt.imshow(reconstructed[0])
         plt.show()
         
+            # Press Q on keyboard to  exit
+        #if cv2.waitKey(25) & 0xFF == ord('q'):
+        #    break 
+        #done = True
+
+def test_run():
+    training_envs = init_metaworld45(render_mode="human", camera_id=2)
+    done = False
+    while done != True:
+        env = training_envs[4]
+        obs = env.reset()  # Reset environment
+        a = env.action_space.sample()  # Sample an action
+        obs, reward, done, info, _ = env.step(a) 
+        env.render()
             # Press Q on keyboard to  exit
         #if cv2.waitKey(25) & 0xFF == ord('q'):
         #    break 
