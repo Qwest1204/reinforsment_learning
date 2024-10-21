@@ -26,7 +26,7 @@ transform2 = T.Compose([T.RandomHorizontalFlip(p=0.5),
 
 transform3 = T.Compose([
                             T.ToPILImage(),
-                            T.Resize(64),
+                            T.Resize((64, 64)),
                             #T.RandomRotation(degrees=90),
                             T.ToTensor(),
 ])

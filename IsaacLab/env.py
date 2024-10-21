@@ -17,7 +17,7 @@ PhysX. This helps perform parallelized computation of the inverse kinematics.
 """
 
 """Launch Isaac Sim Simulator first."""
-
+from VAE.load import prepare_image, init_model, device
 import argparse
 import cv2
 import numpy as np
@@ -51,13 +51,13 @@ from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 from omni.isaac.lab.sensors import CameraCfg
 from omni.isaac.lab.utils.math import subtract_frame_transforms
-
+import matplotlib.pyplot as plt
 ##
 # Pre-defined configs
 ##
 from omni.isaac.lab_assets import FRANKA_PANDA_HIGH_PD_CFG, UR10_CFG  # isort:skip
 
-
+model = init_model("/home/qwest/Downloads/VAE.pth", 32, 1)
 @configclass
 class TableTopSceneCfg(InteractiveSceneCfg):
     """Configuration for a cart-pole scene."""
@@ -106,7 +106,7 @@ class TableTopSceneCfg(InteractiveSceneCfg):
     
     camera = CameraCfg(
         prim_path="{ENV_REGEX_NS}/Robot/panda_hand/camera",
-        update_period=0.05,
+        update_period=1,
         height=480,
         width=640,
         data_types=["rgb", "distance_to_image_plane"],
@@ -200,14 +200,27 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
         # apply actions
         robot.set_joint_position_target(joint_pos_des, joint_ids=robot_entity_cfg.joint_ids)
         scene.write_data_to_sim()
+
+
+        print(prepare_image(scene["camera"].data.output["rgb"][0].cpu().numpy()).unsqueeze(0).size())
+        reconstructed, mu, _ = model(prepare_image(scene["camera"].data.output["rgb"][0].cpu().numpy()).unsqueeze(0).to(device))
+        reconstructed = reconstructed.view(-1, 3, 64, 64).detach().cpu().numpy().transpose(0, 2, 3, 1)
+        print(reconstructed[0].shape)
         # perform step
-        cv2.imshow("Frame", cv2.cvtColor(np.array(scene["camera"].data.output["rgb"][0].cpu().numpy(), dtype = np.uint8 ), cv2.COLOR_BGR2RGB))
+        #print(scene["camera"].data.output["rgb"][0].size())
+        #print(np.array(reconstructed[0], dtype = np.uint8 ))
+        #print(reconstructed[0])
+        plt.imshow(reconstructed[0])
+        #plt.ioff()
+        #plt.show()
+        plt.close('all') 
+
         sim.step()
         # update sim-time
         count += 1
         # update buffers
         scene.update(sim_dt)
-        cv2.waitKey(1)
+        
 
         # obtain quantities from simulation
         ee_pose_w = robot.data.body_state_w[:, robot_entity_cfg.body_ids[0], 0:7]
