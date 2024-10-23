@@ -27,6 +27,8 @@ kaggle = "^1.6.17"
 tensorflow = "^2.17.0"
 array-record = "^0.5.1"
 tfds-nightly = "^4.9.6.dev202410180044"
+torchinfo = "^1.8.0"
+torchmetrics = "^1.5.1"
 
 
 [build-system]

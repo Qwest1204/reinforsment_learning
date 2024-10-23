@@ -1,0 +1,6 @@
+artifact_location: file:///home/qwest/project/PycharmProjects/Reinforsment_Learning/mlruns/867600587909578385
+creation_time: 1729680506648
+experiment_id: '867600587909578385'
+last_update_time: 1729680506648
+lifecycle_stage: active
+name: /mlflow-pytorch-quickstart
