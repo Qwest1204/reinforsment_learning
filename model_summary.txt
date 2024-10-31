@@ -13,10 +13,10 @@ VAE                                      --
 │    └─Conv2d: 2-8                       2,097,152
 │    └─BatchNorm2d: 2-9                  1,024
 │    └─LeakyReLU: 2-10                   --
-│    └─Conv2d: 2-11                      524,288
+│    └─Conv2d: 2-11                      2,097,152
 │    └─LeakyReLU: 2-12                   --
 ├─Sequential: 1-2                        --
-│    └─ConvTranspose2d: 2-13             262,144
+│    └─ConvTranspose2d: 2-13             1,048,576
 │    └─BatchNorm2d: 2-14                 1,024
 │    └─ReLU: 2-15                        --
 │    └─ConvTranspose2d: 2-16             2,097,152
@@ -31,7 +31,7 @@ VAE                                      --
 │    └─ConvTranspose2d: 2-25             1,731
 │    └─Sigmoid: 2-26                     --
 =================================================================
-Total params: 6,299,715
-Trainable params: 6,299,715
+Total params: 8,659,011
+Trainable params: 8,659,011
 Non-trainable params: 0
 =================================================================
