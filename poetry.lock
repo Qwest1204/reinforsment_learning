@@ -458,6 +458,16 @@ files = [
 ]
 
 [[package]]
+name = "chroma"
+version = "0.2.0"
+description = "Color handling made simple."
+optional = false
+python-versions = "*"
+files = [
+    {file = "Chroma-0.2.0.tar.gz", hash = "sha256:e265bcd503e2b35c4448b83257467166c252ecf3ab610492432780691cdfb286"},
+]
+
+[[package]]
 name = "click"
 version = "8.1.7"
 description = "Composable command line interface toolkit"
@@ -1381,6 +1391,20 @@ files = [
     {file = "json5-0.9.25-py3-none-any.whl", hash = "sha256:34ed7d834b1341a86987ed52f3f76cd8ee184394906b6e22a1e0deb9ab294e8f"},
     {file = "json5-0.9.25.tar.gz", hash = "sha256:548e41b9be043f9426776f05df8635a00fe06104ea51ed24b67f908856e151ae"},
 ]
+
+[[package]]
+name = "jsonpatch"
+version = "1.33"
+description = "Apply JSON-Patches (RFC 6902)"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*"
+files = [
+    {file = "jsonpatch-1.33-py2.py3-none-any.whl", hash = "sha256:0ae28c0cd062bbd8b8ecc26d7d164fbbea9652a1a3693f3b956c1eae5145dade"},
+    {file = "jsonpatch-1.33.tar.gz", hash = "sha256:9fcd4009c41e6d12348b4a0ff2563ba56a2923a7dfee731d004e212e1ee5030c"},
+]
+
+[package.dependencies]
+jsonpointer = ">=1.9"
 
 [[package]]
 name = "jsonpointer"
@@ -4043,6 +4067,27 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "visdom"
+version = "0.2.4"
+description = "A tool for visualizing live, rich data for Torch and Numpy"
+optional = false
+python-versions = "*"
+files = [
+    {file = "visdom-0.2.4.tar.gz", hash = "sha256:84a911d3c8814a056d54812b381bd938cb44bcfc503a85fe0f701502bb720574"},
+]
+
+[package.dependencies]
+jsonpatch = "*"
+networkx = "*"
+numpy = ">=1.8"
+pillow = "*"
+requests = "*"
+scipy = "*"
+six = "*"
+tornado = "*"
+websocket-client = "*"
+
+[[package]]
 name = "waitress"
 version = "3.0.1"
 description = "Waitress WSGI server"
@@ -4228,4 +4273,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "3.10.14"
-content-hash = "61527928fe0c4dd04731248dff10a08719c4f8d44491565a9331a3363c4829a4"
+content-hash = "bfc821b67acfc376edcd16e9c56fcb501ed5d2cb07e26aa1795e038c6e4f6784"
