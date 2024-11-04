@@ -101,3 +101,22 @@ def reconstruct_Z_by_t(Z, t, model):
     """
     img = model.decoder(torch.from_numpy(Z[t]).to(DEVICE)).detach().cpu().numpy().transpose(0, 2, 3, 1)
     return img
+
+def reconstruct_Z(Z, model):
+    """
+        Reconstructs images from latent representations for all time steps.
+
+        Args:
+            Z: A numpy array containing latent representations for all time steps.
+            model: The diffusion model used for reconstruction.
+
+        Returns:
+            A list of numpy arrays representing the reconstructed images for each time step.
+    """
+    image = []
+    total_z_parametr = Z.shape[0]
+
+    for t in range(total_z_parametr):
+        image.append(reconstruct_Z_by_t(Z, t, model))
+        
+    return image
