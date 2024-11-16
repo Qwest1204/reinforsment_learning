@@ -9,6 +9,5 @@ mlruns
 __pycache__
 .aws
 container_data
-train.py
 *.onnx
 VAE/weights
