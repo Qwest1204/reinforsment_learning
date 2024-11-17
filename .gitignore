@@ -11,3 +11,4 @@ __pycache__
 container_data
 *.onnx
 VAE/weights
+USD
