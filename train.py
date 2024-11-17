@@ -12,15 +12,15 @@ import matplotlib.pyplot as plt
 from VAE.model import VAE
 from VAE.data import Ego4d, DEVICE, BATCH_SIZE, transform1, transform2, ResumableRandomSampler
 
-checkpoint = torch.load('/home/qwest/project/PycharmProjects/Reinforsment_Learning/VAE/weights/main/VAE_checkpoint_32_69.pt')
+checkpoint = torch.load('/home/qwest/project/PycharmProjects/Reinforsment_Learning/VAE/weights/main/VAE_checkpoint_32_90.pt')
 
 print('transform initializate sucsess')
-train_dataset = Ego4d(img_dir='/home/qwest/data_for_ml/3_25',
+train_dataset = Ego4d(img_dir='/home/qwest/data_for_ml/5_25',
                            transform1=transform1,
                            transform2=transform2)
 print("train_dataset init")
 sampler = ResumableRandomSampler(train_dataset)
-sampler.set_state(checkpoint['sampler_state'])
+#sampler.set_state(checkpoint['sampler_state'])
 print("train_sampler init")
 train_loader = DataLoader(dataset=train_dataset,
                            batch_size=32,
@@ -32,7 +32,7 @@ print("train_loader init")
 print("Len of trainloader: ",len(train_loader))
 
 lr = 0.001
-epochs = 70
+epochs = 115
 latent_dim = 32
 
 model = VAE(latent_dim, batch_size=32).to(DEVICE)
