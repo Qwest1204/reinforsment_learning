@@ -1,4 +1,5 @@
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, DataLoader, Sampler
+import random
 from torchvision.transforms import transforms as T
 from pathlib import Path
 from hashlib import md5
@@ -9,6 +10,7 @@ import torch
 
 BATCH_SIZE = 32
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+random.seed(42)
 
 print(f"device {DEVICE} is ready")
 
@@ -23,7 +25,7 @@ transform2 = T.Compose([T.RandomHorizontalFlip(p=0.5),
                         ])
 
 class Ego4d(Dataset):
-    def __init__(self, img_dir, transform1=None, transform2=None):
+    def __init__(self, img_dir, transform1=None, transform2=None,):
     
         self.img_dir = img_dir
         self.img_names = os.listdir(img_dir)
@@ -49,5 +51,49 @@ class Ego4d(Dataset):
 
     def __len__(self):
         return len(self.imgs)
+    
+class ResumableRandomSampler(torch.utils.data.Sampler):
+    r"""Samples elements randomly. If without replacement, then sample from a shuffled dataset.
+    If with replacement, then user can specify :attr:`num_samples` to draw.
+    Arguments:
+        data_source (Dataset): dataset to sample from
+        replacement (bool): samples are drawn on-demand with replacement if ``True``, default=``False``
+        num_samples (int): number of samples to draw, default=`len(dataset)`. This argument
+            is supposed to be specified only when `replacement` is ``True``.
+        generator (Generator): Generator used in sampling.
+    """
+    #data_source: Sized
+    #replacement: bool
 
+    def __init__(self, data_source):
+        self.data_source = data_source
+        self.generator = torch.Generator()
+        self.generator.manual_seed(47)
+        
+        self.perm_index = 0
+        self.perm = torch.randperm(self.num_samples, generator=self.generator)
+        
+    @property
+    def num_samples(self) -> int:
+        return len(self.data_source)
+
+    def __iter__(self):
+        if self.perm_index >= len(self.perm):
+            self.perm_index = 0
+            self.perm = torch.randperm(self.num_samples, generator=self.generator)
+            
+        while self.perm_index < len(self.perm):
+            self.perm_index += 1
+            yield self.perm[self.perm_index-1]
+
+    def __len__(self):
+        return self.num_samples
+    
+    def get_state(self):
+        return {"perm": self.perm, "perm_index": self.perm_index, "generator_state": self.generator.get_state()}
+    
+    def set_state(self, state):
+        self.perm = state["perm"]
+        self.perm_index = state["perm_index"]
+        self.generator.set_state(state["generator_state"])
 
