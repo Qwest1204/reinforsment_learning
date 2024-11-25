@@ -16,10 +16,11 @@ print(f"device {DEVICE} is ready")
 
 # First preprocessing of data
 transform1 = T.Compose([T.Resize(64),
-                        T.CenterCrop(64)])
+                        T.CenterCrop(64)
+                        ])
 
 # Data augmentation and converting to tensors
-transform2 = T.Compose([T.RandomHorizontalFlip(p=0.5),
+transform2 = T.Compose([#T.RandomHorizontalFlip(p=0.5),
                         T.ToTensor(),
                         #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                         ])
@@ -52,8 +53,38 @@ class Ego4d(Dataset):
     def __len__(self):
         return len(self.imgs)
     
+class MarioDataset(Dataset):
+    def __init__(self, root_dir, transform1, transform2):
+
+        self.root_dir = root_dir
+        self.image_paths = sorted([os.path.join(root_dir, f) for f in os.listdir(root_dir) if f.endswith('.png')])
+
+        self.transform1 = transform1
+        self.transform2 = transform2
+
+        self.imgs = []
+
+        for img in self.image_paths:
+            img = Image.open(img)
+            
+            if self.transform1 is not None:
+                img = self.transform1(img)
+                
+            self.imgs.append(img)
+
+    def __len__(self):
+        return len(self.image_paths)
+
+    def __getitem__(self, index):
+            img = self.imgs[index]
+            
+            if self.transform2 is not None:
+                img = self.transform2(img)
+            
+            return img
+    
 class ResumableRandomSampler(torch.utils.data.Sampler):
-    r"""Samples elements randomly. If without replacement, then sample from a shuffled dataset.
+    """Samples elements randomly. If without replacement, then sample from a shuffled dataset.
     If with replacement, then user can specify :attr:`num_samples` to draw.
     Arguments:
         data_source (Dataset): dataset to sample from
@@ -97,3 +128,13 @@ class ResumableRandomSampler(torch.utils.data.Sampler):
         self.perm_index = state["perm_index"]
         self.generator.set_state(state["generator_state"])
 
+
+class StaticSampler(torch.utils.data.Sampler):
+    def __init__(self, data_source):
+        self.data_source = data_source
+
+    def __iter__(self):
+        return iter(range(len(self.data_source)))
+
+    def __len__(self):
+        return len(self.data_source)
