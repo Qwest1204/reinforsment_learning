@@ -16,10 +16,11 @@ print(f"device {DEVICE} is ready")
 
 # First preprocessing of data
 transform1 = T.Compose([T.Resize(64),
-                        T.CenterCrop(64)])
+                        T.CenterCrop(64)
+                        ])
 
 # Data augmentation and converting to tensors
-transform2 = T.Compose([T.RandomHorizontalFlip(p=0.5),
+transform2 = T.Compose([#T.RandomHorizontalFlip(p=0.5),
                         T.ToTensor(),
                         #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                         ])

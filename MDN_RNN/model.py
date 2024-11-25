@@ -36,9 +36,9 @@ def train_RNN(epochs, seqlen, model, z, ):
     # Train the model
     for epoch in range(epochs):
         # Set initial hidden and cell states
-        hidden = model.init_hidden(35)
+        hidden = model.init_hidden(32)
         loss = 0
-        for i in range(0, 16, seqlen):
+        for i in range(0, 257, seqlen):
             # Get mini-batch inputs and targets
             inputs = z[:, i:i+seqlen, :].to(DEVICE)
             targets = z[:, (i+1):(i+1)+seqlen, :].to(DEVICE)
@@ -56,5 +56,5 @@ def train_RNN(epochs, seqlen, model, z, ):
             optimizer.step()
             
         if epoch % 50 == 0:
-            print ('Epoch [{}/{}], Loss: {:.4f}'
+            print ('Epoch [{}/{}], Loss: {:.10f}'
                 .format(epoch+1, epochs, loss))
