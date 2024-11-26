@@ -1,8 +1,14 @@
-import gym_super_mario_bros
+import gymnasium
+import pygame
+from vizdoom import gymnasium_wrapper
+from gym.utils.play import play
+mapping = {(pygame.K_LEFT,): 0, (pygame.K_RIGHT,): 1}
+play(gymnasium.make("VizdoomCorridor-v0", render_mode="rgb_array"), keys_to_action=mapping)
+# observation, info = env.reset()
+# for _ in range(1000):  # this is where you would insert your policy
+#     observation, reward, terminated, truncated, info = env.step(env.action_space.sample())
 
-from nes_py.wrappers import JoypadSpace
-
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-
-env = gym_super_mario_bros.make('SuperMarioBros-v0')
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+#     if terminated or truncated:
+#         observation, info = env.reset()
+#     env.render()
+# env.close()
