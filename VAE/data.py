@@ -15,7 +15,8 @@ random.seed(42)
 print(f"device {DEVICE} is ready")
 
 # First preprocessing of data
-transform1 = T.Compose([T.Resize(64),
+transform1 = T.Compose([
+    T.Resize(64),
                         T.CenterCrop(64)
                         ])
 
@@ -53,7 +54,7 @@ class Ego4d(Dataset):
     def __len__(self):
         return len(self.imgs)
     
-class MarioDataset(Dataset):
+class ROBO(Dataset):
     def __init__(self, root_dir, transform1, transform2):
 
         self.root_dir = root_dir

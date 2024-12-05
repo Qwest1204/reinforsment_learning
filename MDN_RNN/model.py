@@ -64,7 +64,7 @@ def train_RNN(epochs, seqlen, model, z, bsz):
         # Set initial hidden and cell states
         hidden = model.init_hidden(bsz)
         
-        for i in range(0, 8, 16):
+        for i in range(0, z.size(1)-seqlen, seqlen):
             # Get mini-batch inputs and targets
             inputs = z[:, i:i+seqlen, :].to(DEVICE)
             targets = z[:, (i+1):(i+1)+seqlen, :].to(DEVICE)

@@ -23,6 +23,13 @@ tqdm = "^4.67.0"
 torchsummary = "^1.5.1"
 gym-super-mario-bros = "^7.4.0"
 fastapi = "^0.115.5"
+vizdoom = "^1.2.4"
+tensorflow-datasets = "^4.9.7"
+tensorflow = "^2.18.0"
+gcsfs = "^2024.10.0"
+stable-baselines3 = {extras = ["extra"], version = "^2.4.0"}
+swig = "^4.3.0"
+moviepy = "^2.1.1"
 
 
 [build-system]
