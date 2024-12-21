@@ -30,6 +30,8 @@ gcsfs = "^2024.10.0"
 stable-baselines3 = {extras = ["extra"], version = "^2.4.0"}
 swig = "^4.3.0"
 moviepy = "^2.1.1"
+ray = "^2.40.0"
+tfrecord = {extras = ["torch"], version = "^1.14.5"}
 
 
 [build-system]
